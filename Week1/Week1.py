@@ -1,13 +1,8 @@
 print("Hello CS II for Data Scientists!")
+
 print("Hello CIS2001!")
 
-
-
-
-
 print("Hi from the desktop computer")
-
-
 
 print("This is a long file!")
 
