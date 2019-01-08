@@ -1,4 +1,4 @@
-print("Hello class!")
+print("Hello CS II for Data Scientists!")
 
 
 
