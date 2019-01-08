@@ -1,4 +1,4 @@
-print("Hello class!")
+print("Hello CIS2001!")
 
 
 
