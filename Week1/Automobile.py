@@ -9,6 +9,20 @@ class Automobile:
 
         self._gas_in_tank_in_gallons += gallons
 
+    def __str__(self):
+        return "Automobile with {} gallon gas tank with {} gallons in the tank" \
+            .format(self._gas_capacity_in_gallons, self._gas_in_tank_in_gallons)
+
+
+
+
+class Truck(Automobile):
+    def __init__(self, gas_capacity_in_gallons, endorsement_requirements):
+        Automobile.__init__(self, gas_capacity_in_gallons)
+        self.endorsement_requirements = endorsement_requirements
+
+    def can_drive(self, drivers_license_endorsement):
+        return drivers_license_endorsement == self.endorsement_requirements
 
 
 if __name__ == '__main__':
