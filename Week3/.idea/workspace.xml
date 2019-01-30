@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d2c1457-05b5-4a85-95a9-4fc33bc1cfc5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SudokuSolver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4d2c1457-05b5-4a85-95a9-4fc33bc1cfc5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,10 +12,11 @@
     <session id="-596123128">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -48,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Week3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state relative-caret-position="136">
               <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <marker date="1548192469367" expanded="true" signature="266:830" ph="..." />
@@ -63,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SudokuSolver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1763">
-              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+            <state relative-caret-position="1360">
+              <caret line="80" selection-start-line="80" selection-end-line="80" />
               <folding>
                 <marker date="1548364444884" expanded="true" signature="19:24" ph="..." />
               </folding>
@@ -116,6 +114,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -127,7 +126,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -257,8 +255,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07650643" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07582939" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -283,7 +282,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Week3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
+        <state relative-caret-position="136">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
             <marker date="1548192469367" expanded="true" signature="266:830" ph="..." />
@@ -306,8 +305,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SudokuSolver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1763">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="1360">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
           <folding>
             <marker date="1548364444884" expanded="true" signature="19:24" ph="..." />
           </folding>
