@@ -8,7 +8,7 @@ class KnightsTour:
         self.is_solved = False
         for row in range(size):
             self.board.append([])
-            for column in range(8):
+            for column in range(size):
                 self.board[row].append( KnightsTour.EMPTY )
         self.current = 0
         self._solve(0,0)
@@ -21,6 +21,7 @@ class KnightsTour:
         return self.board[row][col] == KnightsTour.EMPTY
 
     def _solve(self, row, col):
+        #print(self.current)
         self.current += 1
         self.board[row][col] = self.current
 
@@ -29,7 +30,14 @@ class KnightsTour:
             return
 
         positions = [ Position(self, row+jump[0], col+jump[1]) for jump in KnightsTour.JUMPS if self.is_valid_open_space(row+jump[0], col+jump[1]) ]
-        #positions.sort()
+
+        # same as above
+        #positions = []
+        #for jump in KnightsTour.JUMPS:
+        #    if self.is_valid_open_space(row+jump[0], col+jump[1]):
+        #        positions.append( Position(self, row+jump[0], col+jump[1]))
+
+        positions.sort()
         for position in positions:
             if not self.is_solved:
                 self._solve(position.row, position.col)
