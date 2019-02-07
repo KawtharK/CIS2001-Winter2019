@@ -55,6 +55,58 @@ class MyQueue:
     def get_size(self):
         return sys.getsizeof(self._data)
 
+
+class CircularQueue:
+    DEFAULT_CAPACITY = 10
+
+    def __init__(self):
+        self._data = [None] * CircularQueue.DEFAULT_CAPACITY
+        self._number_of_items = 0
+        self._front_index = 0
+
+    def __len__(self):
+        return self._number_of_items
+
+    def is_empty(self):
+        return self._number_of_items == 0
+
+    def first(self):
+        if self.is_empty():
+            raise IndexError("Empty Queue")
+        self._data[self._front_index]
+
+    def dequeue(self):
+        if self.is_empty():
+            raise IndexError("Empty Queue")
+        value = self._data[self._front_index]
+        self._data[self._front_index] = None
+        self._front_index = ( self._front_index + 1 ) % len(self._data)
+        self._number_of_items -= 1
+        return value
+
+    def enqueue(self,item):
+        if self._number_of_items == len(self._data):
+            self._resize(len(self._data) * 2 )
+        next_available_index = \
+            (self._front_index + self._number_of_items) \
+            % len(self._data)
+        self._data[next_available_index] = item
+        self._number_of_items += 1
+
+    def _resize(self, capacity):
+        old_data = self._data
+        self._data = [None]*capacity
+        current_index = self._front_index
+        for index in range(0, len(old_data)):
+            self._data[index] = old_data[current_index]
+            current_index = ( current_index + 1 ) % len(old_data)
+        self._front_index = 0
+
+    def get_size(self):
+        return sys.getsizeof(self._data)
+
+
+
 mystack = MyStack()
 for number in range(100):
     mystack.push(number)
@@ -72,3 +124,18 @@ for number in range(100):
 while len(myqueue) > 0:
     myqueue.dequeue()
     print("Current items: {} - size: {}".format(len(myqueue), myqueue.get_size()))
+
+print("bad memory management queue")
+myqueue = MyQueue()
+for number in range(100):
+    myqueue.enqueue(number)
+    myqueue.dequeue()
+    print("Current items: {} - size: {}".format(len(myqueue), myqueue.get_size()))
+
+
+print("circular queue")
+betterQueue = CircularQueue()
+for number in range(100):
+    betterQueue.enqueue(number)
+    betterQueue.dequeue()
+    print("Current items: {} - size: {}".format(len(betterQueue), betterQueue.get_size()))
