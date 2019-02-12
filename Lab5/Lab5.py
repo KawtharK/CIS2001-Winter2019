@@ -95,6 +95,8 @@ class GoodBurger:
                     self.drive_thru.dequeue()
             else:
                 # car drives off and we lose money
+
+                # TODO check for this first and loop for driveoffs
                 self.money -= self.drive_thru.first().number_of_fries_to_order * GoodBurger.EARNING_PER_FRY
                 self.drive_thru.dequeue()
 
