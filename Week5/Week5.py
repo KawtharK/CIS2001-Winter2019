@@ -73,7 +73,7 @@ class CircularQueue:
     def first(self):
         if self.is_empty():
             raise IndexError("Empty Queue")
-        self._data[self._front_index]
+        return self._data[self._front_index]
 
     def dequeue(self):
         if self.is_empty():
