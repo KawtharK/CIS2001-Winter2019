@@ -39,11 +39,15 @@ class GoodBurger:
         self.fry_stack = MyStack()
         self.burger_chute = CircularQueue()
         self.drive_thru = CircularQueue()
-        self.money = 0
+        self.money_earned = 0
+        self.money_lost_to_stale_food = 0
         self.turn_number = 0
+        self.potential_sales_lost = 0
+        random.seed(100)
 
     def __str__(self):
-        return "Good Burger Report - Number of Turns: {} - Money Earned: ${}".format(self.turn_number, self.money)
+        return "Good Burger Report - Number of Turns: {} - Money Earned: ${} - Money Lost to Food Waste: ${} - Cost of potential sales from drives offs: ${}".format(
+            self.turn_number, self.money_earned, self.money_lost_to_stale_food, self.potential_sales_lost )
 
     def simulate(self, turns):
         for turn in range(turns):
@@ -68,7 +72,7 @@ class GoodBurger:
                 self.grease_pit_to_cook_fries_in.dequeue()
             else:
                 # fries burn, throw away
-                self.money -= GoodBurger.EARNING_PER_FRY
+                self.money_lost_to_stale_food -= GoodBurger.EARNING_PER_FRY
                 self.grease_pit_to_cook_fries_in.dequeue()
 
     def does_car_showup(self):
@@ -76,28 +80,24 @@ class GoodBurger:
             self.drive_thru.enqueue(Car(self.turn_number))
 
     def take_front_car_order(self):
+        self.check_for_drive_offs()
         if not self.drive_thru.is_empty():
-            if self.drive_thru.first().time_arrived + GoodBurger.MINUTES_UNTIL_CAR_DRIVES_OFF > self.turn_number:
-                if len(self.fry_stack) < self.drive_thru.first().number_of_fries_to_order:
-                    while len(self.grease_pit_to_cook_fries_in) < GoodBurger.MAX_FRIES_COOKING \
-                            and len(self.grease_pit_to_cook_fries_in) < self.drive_thru.first().number_of_fries_to_order:
-                        self.grease_pit_to_cook_fries_in.enqueue(self.turn_number)
-                else:
-                    for fry in range(self.drive_thru.first().number_of_fries_to_order):
-                        if self.fry_stack.peek() + GoodBurger.TIMES_UNTIL_FRIES_ARE_GROSS <= self.turn_number:
+            if len(self.fry_stack) + len(self.grease_pit_to_cook_fries_in) < self.drive_thru.first().number_of_fries_to_order:
+                while len(self.grease_pit_to_cook_fries_in) < GoodBurger.MAX_FRIES_COOKING \
+                        and len(self.grease_pit_to_cook_fries_in) < self.drive_thru.first().number_of_fries_to_order:
+                    self.grease_pit_to_cook_fries_in.enqueue(self.turn_number)
+            else:
+                for fry in range(self.drive_thru.first().number_of_fries_to_order - self.drive_thru.first().number_of_fries_served):
+                    if len(self.fry_stack) > 0:
+                        if self.fry_stack.peek() + GoodBurger.TIMES_UNTIL_FRIES_ARE_GROSS >= self.turn_number:
                             self.fry_stack.pop()
                             self.drive_thru.first().number_of_fries_served += 1
-                            self.money += GoodBurger.EARNING_PER_FRY
+                            self.money_earned += GoodBurger.EARNING_PER_FRY
                         else:
                             self.fry_stack.pop()
-                            self.money -= GoodBurger.EARNING_PER_FRY
-                if self.drive_thru.first().number_of_fries_to_order == self.drive_thru.first().number_of_fries_served:
-                    self.drive_thru.dequeue()
-            else:
-                # car drives off and we lose money
-
-                # TODO check for this first and loop for driveoffs
-                self.money -= self.drive_thru.first().number_of_fries_to_order * GoodBurger.EARNING_PER_FRY
+                            self.money_lost_to_stale_food -= GoodBurger.EARNING_PER_FRY
+            if self.drive_thru.first().number_of_fries_to_order == self.drive_thru.first().number_of_fries_served:
+                print("{} left on turn {}".format(self.drive_thru.first(), self.turn_number))
                 self.drive_thru.dequeue()
 
     def get_to_ready_targets(self):
@@ -106,6 +106,11 @@ class GoodBurger:
                 if len(self.grease_pit_to_cook_fries_in) < GoodBurger.MAX_FRIES_COOKING:
                     self.grease_pit_to_cook_fries_in.enqueue(self.turn_number)
 
+    def check_for_drive_offs(self):
+        while not self.drive_thru.is_empty() and self.drive_thru.first().time_arrived + GoodBurger.MINUTES_UNTIL_CAR_DRIVES_OFF < self.turn_number:
+            self.potential_sales_lost -= self.drive_thru.first().number_of_fries_to_order * GoodBurger.EARNING_PER_FRY
+            print("{} left on turn {}".format(self.drive_thru.first(), self.turn_number))
+            self.drive_thru.dequeue()
 
 class Car:
 
@@ -116,7 +121,14 @@ class Car:
         self.number_of_fries_served = 0
         self.number_of_burgers_served = 0
 
+    def __str__(self):
+        return "Arrived on turn {} - ordered {} fries - received {} fries".format(self.time_arrived, self.number_of_fries_to_order, self.number_of_fries_served)
+
 
 fry_shop = GoodBurger()
+fry_shop.simulate(20)
+print(fry_shop)
+fry_shop = GoodBurger()
+GoodBurger.TARGET_READY_FRIES = 2
 fry_shop.simulate(20)
 print(fry_shop)
